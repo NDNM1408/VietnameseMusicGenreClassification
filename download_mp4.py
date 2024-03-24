@@ -1,4 +1,5 @@
 import os
+import re
 from pytube import YouTube
 from pydub import AudioSegment
 
@@ -21,7 +22,10 @@ def download_audio_from_youtube(youtube_url):
             # Get the highest quality audio stream
             audio_stream = audio_streams[0]
 
-            file_name_mp3 = f"{index}.mp3"
+            yt.title = re.sub(r'[^\w\-_\. ]', '_', yt.title)
+
+            file_name_mp3 = f"{index}_{yt.title}.mp3"
+            file_name_wav = f"{index}_{yt.title}.wav"
 
             # Download the audio stream
             audio_stream.download(output_path, filename=file_name_mp3)
@@ -29,9 +33,9 @@ def download_audio_from_youtube(youtube_url):
             print(f"{file_name_mp3} downloaded successfully.")
 
             # Convert mp3 to wav
-            sound = AudioSegment.from_file(f"{output_path}/{file_name_mp3}", format="mp3")
-            sound.export(f"{output_path}/{index}.wav", format="wav")
-            print(f"{index}.wav converted successfully.")
+            sound = AudioSegment.from_file(f"{output_path}/{file_name_mp3}")
+            sound.export(f"{output_path}/{file_name_wav}", format="wav")
+            print(f"{file_name_wav} converted successfully.")
 
             # Remove mp3 file
             os.remove(f"{output_path}/{file_name_mp3}")
