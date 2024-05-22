@@ -1,0 +1,47 @@
+.App {
+  text-align: center;
+  color: white;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.file-input {
+  font-size: 24px;
+  margin: 10px 0;
+  padding: 10px;
+  border: 2px solid #4caf50;
+  border-radius: 10px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-input:hover {
+  background: #f0f0f0;
+}
+
+.classify-button {
+  font-size: 24px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #4caf50, #66bb6a);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.classify-button:hover {
+  background: linear-gradient(45deg, #66bb6a, #4caf50);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.prediction-text {
+  font-size: 24px;
+  margin-top: 20px;
+}
