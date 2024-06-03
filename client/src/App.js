@@ -3,29 +3,25 @@ import axios from "axios";
 import { useState } from "react";
 
 const App = () => {
-  const [file, setFile] = useState(null);
+  const [url, setUrl] = useState("");
   const [prediction, setPrediction] = useState("");
+  const handleUrlChange = (e) => {
+    setUrl(e.target.value);
+  };
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const handleClear = () => {
+    setUrl("");
+    setPrediction("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", file);
-
     try {
-      const response = await axios.post(
-        "http://localhost:5000/upload",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setPrediction(response.data.prediction);
+      setPrediction("Đang phân loại ...");
+      const response = await axios.post(`http://127.0.0.1:8000/predict`, {
+        url,
+      });
+      setPrediction(response.data.genre);
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -54,19 +50,28 @@ const App = () => {
           boxShadow: "0 4px 8px rgba(1, 2, 3, 0.5)",
         }}
       >
-        <h3>Audio Classification</h3>
-        <form onSubmit={handleSubmit} className="form-container">
+        <h3>Phân loại nhạc</h3>
+        <form className="form-container">
           <input
-            type="file"
-            onChange={handleFileChange}
-            accept="audio/*"
+            value={url}
             className="file-input"
+            placeholder="youtube link"
+            onChange={handleUrlChange}
           />
-          <button type="submit" className="classify-button">
-            Classify
-          </button>
+          <div style={{ display: "flex", gap: "10px" }}>
+            <button onClick={handleClear} className="clear-button">
+              Xoá
+            </button>
+            <button
+              onClick={handleSubmit}
+              type="submit"
+              className="classify-button"
+            >
+              Phân loại
+            </button>
+          </div>
         </form>
-        {prediction && <p>Prediction: {prediction}</p>}
+        {prediction && <p>{prediction}</p>}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import joblib
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import os
 import librosa
 import numpy as np
@@ -14,6 +15,19 @@ logistic_regression_model = joblib.load('logistic_regression_model.pkl')
 
 # Load the StandardScaler
 sc = joblib.load('standard_scaler.pkl')
+
+# Configure CORS
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def predict_genre(url):
     audio_path = 'data/audio.wav'
@@ -52,6 +66,3 @@ class Request(BaseModel):
 def predict(request: Request):
     result = predict_genre(request.url)
     return {"genre": result}
-
-
-

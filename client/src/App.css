@@ -28,7 +28,7 @@
   font-size: 24px;
   padding: 10px 20px;
   border-radius: 10px;
-  background: linear-gradient(45deg, #4caf50, #66bb6a);
+  background: linear-gradient(45deg, #047857, #065f46);
   color: white;
   border: none;
   cursor: pointer;
@@ -36,9 +36,16 @@
   margin-top: 10px;
 }
 
-.classify-button:hover {
-  background: linear-gradient(45deg, #66bb6a, #4caf50);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.clear-button {
+  font-size: 24px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #b91c1c, #b91c1c);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
 .prediction-text {
